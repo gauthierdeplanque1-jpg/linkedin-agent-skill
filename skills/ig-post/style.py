@@ -10,6 +10,7 @@ Scène (JSON) :
   "ruban": true,                # rubans de chantier jaune/noir
   "deco": "points" | "damier",  # décor des cartons pleins
   "position": "centre" | "bas", # où poser la pile de blocs
+  "cadrage": [0.5, 0.5],        # point de la photo à garder au recadrage 9:16
   "blocs": [
     {"texte": "IL FAIT|FROID ?", "style": "titre"},
     {"texte": "VOTRE POÊLE A FAIM", "style": "blanc"},
@@ -231,7 +232,8 @@ def fond_image(scene, W, H):
         if scene.get("deco"):
             decor(img, scene["deco"])
         return img
-    ph = ImageOps.fit(Image.open(fond).convert("RGB"), (W, H), Image.LANCZOS)
+    ph = ImageOps.exif_transpose(Image.open(fond)).convert("RGB")
+    ph = ImageOps.fit(ph, (W, H), Image.LANCZOS, centering=tuple(scene.get("cadrage", (0.5, 0.5))))
     if scene.get("flou"):
         ph = ph.filter(ImageFilter.GaussianBlur(14))
     return ph.convert("RGBA")

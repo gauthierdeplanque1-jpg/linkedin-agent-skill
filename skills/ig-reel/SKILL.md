@@ -23,6 +23,7 @@ description: >-
    | Pros / arrivage | « CHANTIER EN VUE ? » sur la machine → nom + marque → « ARRIVAGE, quantités limitées » → fin | |
    | Événement | carton blanc à points « SOIRÉE PRIVILÈGE » + date → « JUSQU'À -70 % » → fin avec horaires de la soirée | |
    | Annonce dépôt | vidéo floutée + rubans de chantier + bandeaux empilés → fin | `exemples/travaux.json` |
+   | Nouveautés | carton « DU NEUF » → photos avec tag NOUVEAUTÉ → étiquettes prix des modèles exposés → « ET EN RAYON » → fin | `exemples/nouveautes-sas.json` |
 
 3. Donner à l'utilisateur la **liste de tournage** : plans à filmer au
    téléphone, à la verticale, 3 à 5 secondes chacun, sans texte incrusté.

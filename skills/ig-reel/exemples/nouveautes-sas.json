@@ -1,0 +1,37 @@
+{"segments": [
+ {"duree": 2, "fond": "rouge", "blocs": [
+   {"texte": "NOUVEAUTÉ", "style": "jaune", "angle": -3},
+   {"espace": 20},
+   {"texte": "DU NEUF|À L'ENTRÉE !", "style": "titre", "taille": 130},
+   {"espace": 20},
+   {"texte": "BRICO DÉPÔT ANDILLY", "style": "noir", "taille": 40}]},
+ {"duree": 2.4, "media": "cuisine_large.jpg", "cadrage": [0.42, 0.5], "position": "bas", "blocs": [
+   {"texte": "NOUVEAUTÉ", "style": "jaune", "taille": 44, "angle": -3},
+   {"texte": "CUISINE GLORIAN", "style": "rouge", "taille": 84},
+   {"texte": "CHÊNE CLAIR", "style": "noir", "taille": 40}]},
+ {"duree": 2.6, "media": "cuisine_prix.jpg", "cadrage": [0.45, 0.5], "position": "bas", "blocs": [
+   {"prix": "5 847,09", "libelle": "Cuisine exposée|complète", "detail": "Électroménager inclus", "tag": "MODÈLE EXPOSÉ", "echelle": 0.62},
+   {"espace": 24},
+   {"texte": "PLAN 3D & DEVIS · ALLÉE 18", "style": "blanc", "taille": 38}]},
+ {"duree": 2.4, "media": "sdb_sas_cote.jpg", "cadrage": [0.58, 0.5], "position": "bas", "blocs": [
+   {"texte": "NOUVEAUTÉ", "style": "jaune", "taille": 44, "angle": -3},
+   {"texte": "SALLE DE BAINS|AUTHENTIK", "style": "rouge", "taille": 80}]},
+ {"duree": 2.6, "media": "sdb_sas_face.jpg", "cadrage": [0.5, 0.5], "position": "bas", "blocs": [
+   {"prix": "1 501,40", "libelle": "Votre salle|de bain à", "detail": "Prix du modèle exposé", "tag": "MODÈLE EXPOSÉ", "echelle": 0.62},
+   {"espace": 24},
+   {"texte": "ON LA CONÇOIT AVEC VOUS", "style": "blanc", "taille": 36}]},
+ {"duree": 1.8, "fond": "rouge", "blocs": [
+   {"texte": "ET EN|RAYON…", "style": "titre", "taille": 150},
+   {"espace": 20},
+   {"texte": "ALLÉE 8", "style": "jaune", "taille": 70, "angle": -3}]},
+ {"duree": 2.4, "media": "rayon_large.jpg", "position": "bas", "blocs": [
+   {"texte": "NOUVELLE GAMME", "style": "rouge", "taille": 84},
+   {"texte": "SALLE DE BAINS", "style": "noir", "taille": 50},
+   {"texte": "DÉJÀ EN RAYON", "style": "jaune", "taille": 44, "angle": -3}]},
+ {"duree": 2.2, "media": "rayon_meubles.jpg", "position": "bas", "blocs": [
+   {"texte": "PRÊTE|À EMPORTER", "style": "rouge", "taille": 84},
+   {"texte": "DISPONIBLE DÈS MAINTENANT", "style": "noir", "taille": 40}]},
+ {"duree": 2.6, "media": "rayon_179.jpg", "cadrage": [0.5, 0.4], "position": "bas", "blocs": [
+   {"prix": "179", "libelle": "Meuble à poser|Authentik", "detail": "Bois foncé · 120 × 85 × 46 cm", "tag": "NOUVEAUTÉ", "echelle": 0.62}]},
+ {"duree": 2.8, "fin": true}
+]}
