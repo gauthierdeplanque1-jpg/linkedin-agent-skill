@@ -1,0 +1,7 @@
+{"segments": [
+  {"duree": 2.5, "fond": "blanc", "deco": "damier", "blocs": [{"texte": "3 ERREURS", "style": "rouge", "angle": -2}, {"texte": "QUAND ON POSE DU CARRELAGE", "style": "noir"}]},
+  {"duree": 3.5, "fond": "rouge", "blocs": [{"numero": "01"}, {"espace": 24}, {"texte": "OUBLIER LE|DOUBLE ENCOLLAGE", "style": "titre", "taille": 90}, {"espace": 16}, {"texte": "LA BONNE PRATIQUE", "style": "jaune", "taille": 40, "angle": -2}, {"texte": "Grands carreaux : mettez aussi de la colle au dos du carreau.", "style": "carte"}]},
+  {"duree": 3.5, "fond": "rouge", "blocs": [{"numero": "02"}, {"espace": 24}, {"texte": "{{erreur 2}}", "style": "titre", "taille": 90}, {"espace": 16}, {"texte": "LA BONNE PRATIQUE", "style": "jaune", "taille": 40, "angle": -2}, {"texte": "{{conseil 2}}", "style": "carte"}]},
+  {"duree": 3.5, "fond": "rouge", "blocs": [{"numero": "03"}, {"espace": 24}, {"texte": "FAIRE LES JOINTS|TROP TÔT", "style": "titre", "taille": 90}, {"espace": 16}, {"texte": "LA BONNE PRATIQUE", "style": "jaune", "taille": 40, "angle": -2}, {"texte": "{{conseil 3}}", "style": "carte"}]},
+  {"duree": 3, "fin": true}
+]}

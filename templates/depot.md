@@ -6,17 +6,24 @@ Toutes les skills `/ig-*` le lisent avant d'écrire quoi que ce soit.
 ## Identité
 
 - Compte : `{{@ du compte}}`
-- Dépôt : Brico Dépôt Andilly (Val-d'Oise)
-- Adresse, horaires : `{{adresse}}` · `{{horaires, ouvertures exceptionnelles}}`
+- Dépôt : Brico Dépôt Andilly (Charente-Maritime, près de La Rochelle)
+- Adresse : Bel Air, Les Quatre Quartiers · Lun–sam 7h–19h30 · Dim 8h–13h · 05 46 66 12 30
+  (carton de fin : `templates/depot.json`, à copier dans `~/.claude/instagram/depot.json`)
 - Validation : `{{nom du directeur ou de la personne qui valide}}`
 - Relais national : le service Réseaux sociaux (Activation & Médias) du siège.
   Le compte local reprend les opérations nationales, il ne les contredit pas.
 
 ## Ce qu'on reprend du compte national (le « même style »)
 
-- Couleurs : rouge enseigne, noir, blanc. Jaune uniquement pour « 1er prix » et les badges.
-- Titres en MAJUSCULES, très gras, posés sur des bandeaux noirs.
-- Prix en gros chiffres rouges dans un bloc blanc, centimes en petit.
+- Police Montserrat Black/ExtraBold (fournie dans `fonts/`, licence OFL).
+- Bandeaux empilés et centrés : rouge (titre), noir (sur-titre, ville), blanc à
+  texte rouge (sous-titre), jaune à texte noir (tag : PRIX DÉPÔT, ARRIVAGE,
+  RENDEZ-VOUS…), souvent légèrement inclinés.
+- Cartons pleins rouges ou blancs (décor points ou damier), gros titre blanc.
+- Étiquette prix rouge : libellé à gauche, prix géant à droite, tag noir au-dessus.
+- Conseils numérotés : « 01 » blanc sur rouge + carte blanche de texte.
+- Annonces travaux : photo floutée + rubans de chantier jaune/noir.
+- Carton de fin blanc : BRICO DÉPÔT (rouge) / ANDILLY (noir) / adresse, horaires, téléphone.
 - Signatures de l'enseigne : « Allez, aux travaux ! », « On casse des prix tous les jours. »
 - Le calendrier des opérations du B.I.C. (OP hebdo, Black Friday, anti-inflation…).
 - Le logo : uniquement le fichier officiel fourni par l'enseigne, jamais redessiné.
@@ -39,8 +46,8 @@ Toutes les skills `/ig-*` le lisent avant d'écrire quoi que ce soit.
 - Tutoiement ou vouvoiement : `{{choisir}}`
 - Phrases courtes, concrètes, chiffrées. Pas de jargon interne (OP, KBS, Animaco, TDR…).
 - Emojis : 0 à 3 par légende, outils et maison (🔨 🏠 🔥), jamais en mur.
-- Hashtags : 5 à 8. Toujours `#bricodepot #andilly` + `{{#valdoise #95 ...}}`
-  + 2-3 liés au sujet (#isolation #renovation #bricolage).
+- Hashtags : 5 à 8. Base dans `templates/depot.json` (#bricodepot #bricodepotandilly
+  #andilly #larochelle #charentemaritime) + 2-3 liés au sujet (#isolation #renovation).
 
 ## Ce qui ne sort JAMAIS du dépôt
 

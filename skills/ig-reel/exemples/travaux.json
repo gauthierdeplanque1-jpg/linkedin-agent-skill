@@ -1,0 +1,9 @@
+{"segments": [
+  {"duree": 6, "media": "rayon.mp4", "flou": true, "ruban": true, "blocs": [
+    {"texte": "TRAVAUX EN COURS", "style": "noir", "angle": 2},
+    {"texte": "VOTRE DÉPÔT|FAIT PEAU NEUVE", "style": "rouge"},
+    {"texte": "ON REMONTE LES RACKS POUR VOUS", "style": "blanc"},
+    {"espace": 30}, {"texte": "RENDEZ-VOUS EN 2027", "style": "jaune", "angle": 2},
+    {"espace": 24}, {"texte": "BRICO DÉPÔT ANDILLY", "style": "noir", "taille": 40}]},
+  {"duree": 3, "fin": true}
+]}

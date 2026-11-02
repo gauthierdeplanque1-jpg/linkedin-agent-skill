@@ -17,8 +17,8 @@ montre pas : les coulisses, l'équipe, les prix en vrai dans les rayons d'Andill
 | --- | --- |
 | `/ig-bic` | Lit le PDF du B.I.C., garde ce qui sert aux clients, écrit `bic/AAAA-MM.json` |
 | `/ig-plan` | Rétro-planning : brief J-6, tournage J-4, montage J-3, validation J-2, programmation J-1, publication J0, relances |
-| `/ig-post` | Post, carrousel, story : visuel au style dépôt (`make_visual.py`) + légende + hashtags |
-| `/ig-reel` | Storyboard, liste de tournage, montage vidéo (`make_reel.py`, ffmpeg) |
+| `/ig-post` | Post, carrousel, story au style du compte (bandeaux Montserrat, étiquette prix, rubans de chantier, carton de fin) + légende + hashtags |
+| `/ig-reel` | Storyboard, liste de tournage, montage vidéo (`make_reel.py`, ffmpeg) ; 3 exemples dans `skills/ig-reel/exemples/` |
 | `/ig-publish` | Publication par l'API officielle Instagram, aperçu d'abord, `--oui` ensuite |
 
 ## Installation
@@ -26,7 +26,8 @@ montre pas : les coulisses, l'équipe, les prix en vrai dans les rayons d'Andill
 ```bash
 git clone <ce dépôt> && cd linkedin-agent-skill
 cp -r skills/ig-* ~/.claude/skills/
-mkdir -p ~/.claude/instagram && cp templates/depot.md ~/.claude/instagram/depot.md
+# les scripts trouvent la police Montserrat dans fonts/ : lance-les depuis ce dépôt
+mkdir -p ~/.claude/instagram && cp templates/depot.md templates/depot.json ~/.claude/instagram/
 pip install pillow            # visuels
 brew install ffmpeg           # ou apt install ffmpeg : montage vidéo
 ```

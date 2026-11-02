@@ -1,23 +1,29 @@
 #!/usr/bin/env python3
-"""Monte un Reel vertical 1080x1920 à partir d'un storyboard JSON :
-photos (effet zoom lent) et vidéos prises en dépôt, texte en bandeaux
-au style dépôt, carton de fin, musique optionnelle.
+"""Monte un Reel 1080x1920 au style Brico Dépôt Andilly à partir d'un
+storyboard JSON : plans filmés en dépôt avec bandeaux, cartons pleins
+(rouge / blanc), étiquette prix, conseils numérotés, carton de fin.
 
 Usage :
     python3 make_reel.py storyboard.json --out reel.mp4
 
 Storyboard :
 {
+  "musique": "musique_libre_de_droits.mp3",       # optionnel
   "segments": [
-    {"media": "rayon.jpg",  "duree": 2.5, "texte": "IL FAIT FROID ?"},
-    {"media": "radiateur.mp4", "duree": 3, "texte": "RADIATEUR À INERTIE", "sous_texte": "Céramique 1000 W"},
-    {"media": "etiquette.jpg", "duree": 2.5, "texte": "LE PRIX EN VRAI", "sous_texte": "en rayon à Andilly"}
-  ],
-  "fin": {"texte": "ALLEZ, AUX TRAVAUX !", "sous_texte": "Brico Dépôt Andilly", "duree": 2.5},
-  "musique": "musique_libre_de_droits.mp3"
+    {"duree": 2,   "fond": "rouge", "blocs": [{"texte": "IL FAIT|FROID ?", "style": "titre"},
+                                              {"texte": "VOTRE POÊLE A FAIM", "style": "blanc"}]},
+    {"duree": 2.5, "media": "rayon.mp4", "position": "bas",
+                   "blocs": [{"texte": "BAINS D'HUILE", "style": "rouge"},
+                             {"texte": "UNE CHALEUR DOUCE", "style": "noir"}]},
+    {"duree": 2.5, "fond": "blanc", "blocs": [{"prix": "5,29", "libelle": "Granulés|de bois",
+                   "detail": "Sac de 15 kg", "tag": "STOCK XXL"}, {"espace": 30},
+                   {"texte": "PRIX DÉPÔT", "style": "jaune"}]},
+    {"duree": 2.5, "fin": true}
+  ]
 }
-
-Les chemins sont relatifs au fichier storyboard.
+« media » = photo ou vidéo prise en dépôt (sinon « fond » : rouge, blanc).
+Les blocs et options (flou, ruban, deco, position) sont ceux de
+skills/ig-post/style.py. Les chemins sont relatifs au storyboard.
 Dépendances : ffmpeg dans le PATH, Pillow.
 """
 from __future__ import annotations
@@ -30,57 +36,56 @@ import sys
 import tempfile
 from pathlib import Path
 
-from PIL import Image, ImageDraw
-
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "ig-post"))
-from make_visual import BLANC, NOIR, ROUGE, ajuster, bandeau, police  # noqa: E402
+from style import composer  # noqa: E402
 
 W, H, FPS = 1080, 1920, 30
 VIDEO_EXT = {".mp4", ".mov", ".m4v", ".webm", ".avi"}
-
-
-def overlay(texte: str | None, sous_texte: str | None, path: Path, plein=False):
-    img = Image.new("RGBA", (W, H), ROUGE + (255,) if plein else (0, 0, 0, 0))
-    d = ImageDraw.Draw(img)
-    lignes = [l.strip().upper() for l in (texte or "").split("|") if l.strip()]
-    if lignes:
-        f = ajuster(d, lignes, W - 120, 104, None)
-        hauteur = len(lignes) * 140 + (80 if sous_texte else 0)
-        y = (H - hauteur) // 2 if plein else int(H * 0.62)
-        for l in lignes:
-            y = bandeau(d, 60, y, l, f) + 10
-        if sous_texte:
-            y = bandeau(d, 60, y + 10, sous_texte, police(50), fond=BLANC, couleur=NOIR)
-    img.save(path)
+APPARITION = 0.25  # fondu d'entrée des bandeaux, en secondes
 
 
 def run(cmd):
     r = subprocess.run(cmd, capture_output=True, text=True)
     if r.returncode != 0:
         sys.stderr.write(r.stderr[-2000:])
-        raise SystemExit(f"ffmpeg a échoué : {' '.join(cmd[:6])} …")
+        raise SystemExit("ffmpeg a échoué.")
 
 
-def segment(media: Path | None, duree: float, ov: Path, out: Path):
+X264 = ["-r", str(FPS), "-c:v", "libx264", "-preset", "veryfast", "-crf", "20", "-pix_fmt", "yuv420p", "-an"]
+
+
+def segment(seg: dict, racine: Path, tmp: Path, i: int) -> Path:
+    duree = float(seg.get("duree", 2.5))
+    out = tmp / f"seg{i:02d}.mp4"
+    media = seg.get("media")
     frames = int(duree * FPS)
-    if media is None:
-        src = ["-loop", "1", "-t", str(duree), "-i", str(ov)]
-        filtre = f"[0:v]scale={W}:{H},format=yuv420p[v]"
-        run(["ffmpeg", "-y", *src, "-filter_complex", filtre, "-map", "[v]",
-             "-r", str(FPS), "-c:v", "libx264", "-preset", "veryfast", "-an", str(out)])
-        return
-    if media.suffix.lower() in VIDEO_EXT:
-        src = ["-t", str(duree), "-i", str(media)]
-        base = f"[0:v]scale={W}:{H}:force_original_aspect_ratio=increase,crop={W}:{H},fps={FPS},setsar=1[b]"
-    else:
-        src = ["-loop", "1", "-t", str(duree), "-i", str(media)]
-        base = (f"[0:v]scale={W*2}:{H*2}:force_original_aspect_ratio=increase,crop={W*2}:{H*2},"
-                f"zoompan=z='min(zoom+0.0012,1.15)':d={frames}:x='iw/2-(iw/zoom/2)':"
-                f"y='ih/2-(ih/zoom/2)':s={W}x{H}:fps={FPS},setsar=1[b]")
-    filtre = f"{base};[b][1:v]overlay=0:0,format=yuv420p[v]"
-    run(["ffmpeg", "-y", *src, "-loop", "1", "-t", str(duree), "-i", str(ov),
-         "-filter_complex", filtre, "-map", "[v]", "-t", str(duree),
-         "-r", str(FPS), "-c:v", "libx264", "-preset", "veryfast", "-an", str(out)])
+
+    if media and Path(racine / media).suffix.lower() in VIDEO_EXT:
+        ov = tmp / f"ov{i}.png"
+        composer(seg, W, H, transparent=True).save(ov)
+        flou = ",boxblur=20:2" if seg.get("flou") else ""
+        filtre = (f"[0:v]scale={W}:{H}:force_original_aspect_ratio=increase,crop={W}:{H},fps={FPS},setsar=1{flou}[b];"
+                  f"[1:v]format=rgba,fade=t=in:st=0:d={APPARITION}:alpha=1[o];[b][o]overlay=0:0[v]")
+        run(["ffmpeg", "-y", "-ss", str(seg.get("debut", 0)), "-t", str(duree), "-i", str(racine / media),
+             "-loop", "1", "-t", str(duree), "-i", str(ov), "-filter_complex", filtre, "-map", "[v]",
+             "-t", str(duree), *X264, str(out)])
+        return out
+
+    # photo ou carton plein : fond rendu par Pillow, léger zoom, bandeaux en fondu
+    sc = dict(seg)
+    if media:
+        sc["fond"] = str(racine / media)
+    fond = tmp / f"fond{i}.png"
+    ov = tmp / f"ov{i}.png"
+    composer({k: v for k, v in sc.items() if k not in ("blocs", "ruban", "fin")}, W, H).convert("RGB").save(fond)
+    composer(sc, W, H, transparent=not sc.get("fin")).save(ov)
+    zoom = "1.0015" if media else "1.0004"
+    filtre = (f"[0:v]scale={W*2}:{H*2},zoompan=z='min(zoom+{float(zoom)-1},1.12)':d={frames}:"
+              f"x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':s={W}x{H}:fps={FPS},setsar=1[b];"
+              f"[1:v]format=rgba,fade=t=in:st=0:d={APPARITION}:alpha=1[o];[b][o]overlay=0:0[v]")
+    run(["ffmpeg", "-y", "-loop", "1", "-t", str(duree), "-i", str(fond), "-loop", "1", "-t", str(duree),
+         "-i", str(ov), "-filter_complex", filtre, "-map", "[v]", "-t", str(duree), *X264, str(out)])
+    return out
 
 
 def monter(storyboard: Path, out: Path):
@@ -90,31 +95,16 @@ def monter(storyboard: Path, out: Path):
     racine = storyboard.parent
     with tempfile.TemporaryDirectory() as tmp:
         tmp = Path(tmp)
-        morceaux = []
-        for i, s in enumerate(sb["segments"]):
-            ov, seg = tmp / f"ov{i}.png", tmp / f"seg{i}.mp4"
-            overlay(s.get("texte"), s.get("sous_texte"), ov)
-            segment(racine / s["media"], float(s.get("duree", 2.5)), ov, seg)
-            morceaux.append(seg)
-        if sb.get("fin"):
-            f = sb["fin"]
-            ov, seg = tmp / "ovfin.png", tmp / "fin.mp4"
-            overlay(f.get("texte"), f.get("sous_texte"), ov, plein=True)
-            segment(None, float(f.get("duree", 2.5)), ov, seg)
-            morceaux.append(seg)
+        morceaux = [segment(s, racine, tmp, i) for i, s in enumerate(sb["segments"])]
         liste = tmp / "liste.txt"
         liste.write_text("".join(f"file '{m}'\n" for m in morceaux))
         muet = tmp / "muet.mp4"
         run(["ffmpeg", "-y", "-f", "concat", "-safe", "0", "-i", str(liste), "-c", "copy", str(muet)])
         out.parent.mkdir(parents=True, exist_ok=True)
-        if sb.get("musique"):
-            run(["ffmpeg", "-y", "-i", str(muet), "-i", str(racine / sb["musique"]),
-                 "-map", "0:v", "-map", "1:a", "-c:v", "copy", "-c:a", "aac", "-b:a", "192k",
-                 "-af", "afade=t=out:st=0:d=0.1", "-shortest", "-movflags", "+faststart", str(out)])
-        else:
-            run(["ffmpeg", "-y", "-i", str(muet), "-f", "lavfi", "-i", "anullsrc=r=44100:cl=stereo",
-                 "-map", "0:v", "-map", "1:a", "-c:v", "copy", "-c:a", "aac", "-shortest",
-                 "-movflags", "+faststart", str(out)])
+        audio = (["-i", str(racine / sb["musique"])] if sb.get("musique")
+                 else ["-f", "lavfi", "-i", "anullsrc=r=44100:cl=stereo"])
+        run(["ffmpeg", "-y", "-i", str(muet), *audio, "-map", "0:v", "-map", "1:a", "-c:v", "copy",
+             "-c:a", "aac", "-b:a", "192k", "-shortest", "-movflags", "+faststart", str(out)])
     return out
 
 

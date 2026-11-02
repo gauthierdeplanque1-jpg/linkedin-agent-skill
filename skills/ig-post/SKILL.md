@@ -21,23 +21,33 @@ description: >-
 4. Un prix n'apparaît que si l'utilisateur le donne ou s'il figure dans le
    B.I.C. côté client (étiquette, catalogue). Sinon : `{{prix}}` et un drapeau.
 
-## Les formats
+## Les formats (style du compte, voir `style.py`)
 
 | Format | Quand | Commande |
 | --- | --- | --- |
-| Post 4:5 | Un produit, un prix | `--format post` |
-| Carrousel | 3 à 6 produits, un conseil en étapes | un visuel par slide |
-| Story | Rappel, sondage, derniers jours | `--format story` |
+| Post 4:5 | Un produit, une annonce | `--format post` |
+| Story / Reel cover | Rappel, sondage, derniers jours | `--format story` |
+| Carrousel | 3 à 6 produits, un conseil en étapes | une scène JSON par slide |
+| Carton de fin | Adresse, horaires, téléphone | `--fin` |
+
+Annonce rapide (bandeaux empilés sur photo floutée, rubans de chantier) :
 
 ```bash
-python3 make_visual.py --titre "RADIATEUR|À INERTIE" --sous-titre "Céramique 1000 W" \
-  --prix 89 --mention "Du 06/11 au 12/11, dans la limite des stocks" \
-  --badge "Chauffage & isolation" --photo rayon.jpg --logo logo_officiel.png --out post.png
+python3 make_visual.py --titre "VOTRE DÉPÔT|FAIT PEAU NEUVE" --sur-titre "TRAVAUX EN COURS" \
+  --sous-titre "ON REMONTE LES RACKS POUR VOUS" --tag "RENDEZ-VOUS EN 2027" \
+  --photo rayon.jpg --flou --ruban --format post --out travaux.png
 ```
 
+Produit avec prix : `--titre "GRANULÉS DE BOIS" --prix 5,29 --libelle "Granulés|de bois"
+--detail "Sac de 15 kg" --tag-prix "STOCK XXL"`.
+
+Tout le reste (cartons rouges/blancs, conseils numérotés « 01 », décor points
+ou damier, blocs inclinés) passe par une scène JSON :
+`python3 make_visual.py scene.json --format post --out post.png`. Le format
+de scène est documenté en tête de `style.py`.
+
 Carrousel : slide 1 = la promesse (« 3 radiateurs pour passer l'hiver »),
-slides 2 à n-1 = un produit chacun, dernière slide = « Allez, aux travaux ! »
-+ adresse du dépôt.
+slides 2 à n-1 = un produit chacun, dernière slide = carton de fin (`--fin`).
 
 ## La légende
 

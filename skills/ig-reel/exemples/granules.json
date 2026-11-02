@@ -1,0 +1,6 @@
+{"segments": [
+  {"duree": 2.5, "fond": "rouge", "blocs": [{"texte": "IL FAIT|FROID ?", "style": "titre"}, {"espace": 20}, {"texte": "VOTRE POÊLE A FAIM", "style": "blanc"}]},
+  {"duree": 3, "media": "granules_rayon.mp4", "position": "bas", "blocs": [{"texte": "GRANULÉS DE BOIS", "style": "rouge", "taille": 76}, {"texte": "100 % NATURELS", "style": "noir", "taille": 34}]},
+  {"duree": 3, "fond": "blanc", "blocs": [{"prix": "{{prix}}", "libelle": "Granulés|de bois", "detail": "Sac de 15 kg", "tag": "STOCK XXL"}, {"espace": 40}, {"texte": "PRIX DÉPÔT", "style": "jaune", "angle": -3}]},
+  {"duree": 3, "fin": true}
+]}
