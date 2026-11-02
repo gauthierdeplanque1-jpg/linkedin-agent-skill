@@ -49,6 +49,13 @@ Then spend ten minutes on `templates/voice.md`. Copy it to
 into Claude and say "write my voice.md from these". Every skill reads that
 file. Skip it and everything comes out sounding like everyone else.
 
+## Instagram (Brico Dépôt)
+
+Ce fork ajoute cinq skills Instagram en français (`/ig-bic`, `/ig-plan`,
+`/ig-post`, `/ig-reel`, `/ig-publish`) qui transforment le B.I.C. mensuel d'un
+dépôt Brico Dépôt en rétro-planning, visuels, reels et publications.
+Voir [INSTAGRAM.md](INSTAGRAM.md).
+
 ## The eleven
 
 | command | what it does |

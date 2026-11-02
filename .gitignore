@@ -3,3 +3,9 @@ __pycache__/
 *.pyc
 .venv/
 *.tmp
+
+# Agent Instagram : le B.I.C. est un document interne Brico Dépôt
+bic/*
+!bic/README.md
+plans/
+*.mp4
