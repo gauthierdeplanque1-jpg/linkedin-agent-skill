@@ -56,8 +56,12 @@ Ligne 1   l'accroche, visible avant « plus » (≤ 125 caractères)
 Corps     2 à 4 lignes courtes : le produit, le prix, pour qui, pourquoi maintenant
 Local     « Dispo à Brico Dépôt Andilly » + dates de l'offre
 Action    une seule : « Enregistre pour ton chantier », « Dis-nous en commentaire… »
-Hashtags  5 à 8, en fin de légende
+Hashtags  5 maximum (limite Instagram) : #bricodepot #andilly #larochelle + 2 du sujet
 ```
+
+Mots-clés en toutes lettres dans le texte (« magasin de bricolage », « La Rochelle »,
+le produit, le problème) : c'est ce que lit la recherche. Localisation « Andilly »
+sur chaque publication. Règle 1 pour 4 : une promo pour quatre contenus utiles.
 
 Toujours : dates de validité, « dans la limite des stocks disponibles ».
 Jamais : chiffres internes du B.I.C., jargon (OP, KBS, TDR, Animaco).

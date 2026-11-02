@@ -46,8 +46,8 @@ Toutes les skills `/ig-*` le lisent avant d'écrire quoi que ce soit.
 - Tutoiement ou vouvoiement : `{{choisir}}`
 - Phrases courtes, concrètes, chiffrées. Pas de jargon interne (OP, KBS, Animaco, TDR…).
 - Emojis : 0 à 3 par légende, outils et maison (🔨 🏠 🔥), jamais en mur.
-- Hashtags : 5 à 8. Base dans `templates/depot.json` (#bricodepot #bricodepotandilly
-  #andilly #larochelle #charentemaritime) + 2-3 liés au sujet (#isolation #renovation).
+- Hashtags : 5 maximum (limite Instagram) : #bricodepot #andilly #larochelle
+  + 2 liés au sujet (#isolation #combles). Les mots-clés de la légende comptent plus.
 
 ## Ce qui ne sort JAMAIS du dépôt
 

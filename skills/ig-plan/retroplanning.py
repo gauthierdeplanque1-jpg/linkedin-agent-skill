@@ -46,10 +46,13 @@ GABARIT_TEMPS_FORT = [
     (0, "PUBLI", "STORY jour J"),
 ]
 
-# Rubriques récurrentes « ce qu'on ne voit pas chez Brico Dépôt ».
+# Rythme du compte : lundi réel conseil, mercredi carrousel/produit,
+# vendredi réel coulisses ou offre. Tournage en lot le jeudi d'avant.
 RUBRIQUES_HEBDO = {
-    1: ("PUBLI", "COULISSES : arrivage, mise en rayon, cour des matériaux au petit matin"),
-    3: ("PUBLI", "ÉQUIPE : « 1 minute avec… » un vendeur d'Andilly et son conseil"),
+    0: ("PUBLI", "RÉEL CONSEIL « 1 rayon, 1 astuce » (18 h 30)"),
+    2: ("PUBLI", "CARROUSEL conseil ou produit en situation (12 h 15)"),
+    3: ("PREPA", "Tournage en lot de la semaine suivante (1 h, heures creuses)"),
+    4: ("PUBLI", "RÉEL coulisses / équipe ou offre du week-end (12 h 15)"),
 }
 
 
